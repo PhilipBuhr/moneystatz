@@ -1,0 +1,24 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 160px auto;
+  grid-template-areas:
+    "head head"
+    "table chart";
+}
+
+.App-head {
+  grid-area: head;
+  background: #EEEEEE;
+}
+
+.App-table {
+  grid-area: table;
+  background: #BBBBBB;
+}
+
+.App-chart {
+  grid-area: chart;
+}
