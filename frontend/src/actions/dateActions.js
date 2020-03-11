@@ -45,7 +45,6 @@ export const nextDateAction = (date) => {
 const loadTransactions = (year, month, dispatch) => {
     const first = new Date(year, month, 1).toISOString().substring(0, 10);
     const last = new Date(year, month + 1, 0).toISOString().substring(0, 10);
-    console.log(first, last);
     return fetch(`http://localhost:8000/api/transactions?from=${first}&to=${last}`)
         .then(response => response.json(), error => console.log(error))
         .then(json => dispatch(receiveTransactions(json)));

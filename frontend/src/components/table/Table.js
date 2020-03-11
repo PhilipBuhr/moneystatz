@@ -1,25 +1,31 @@
 import React from "react";
 import {connect} from "react-redux";
 import './Table.css'
+import Column from "./Column";
 
 class Table extends React.Component {
 
-    renderTransactions = () => {
-        return this.props.transactions.map(transaction => (
-            <div>{transaction.jar}: {transaction.amount}</div>
+    findTransactions = jar => {
+        return this.props.transactions.filter(transaction => transaction.jar === jar)
+    };
+
+    renderColumns = () => {
+        return this.props.jars.map(jar => (
+            <Column jar={jar} transactions={this.findTransactions(jar)}/>
         ))
     };
 
     render() {
         return (
             <div className="Table-container">
-                {this.renderTransactions()}
+                {this.renderColumns()}
             </div>
         )
     }
 }
 const mapStateToProps = state => ({
-    transactions: state.dateState.transactions
+    transactions: state.dateState.transactions,
+    jars: state.dateState.jars
 });
 
 export default connect(mapStateToProps)(Table);

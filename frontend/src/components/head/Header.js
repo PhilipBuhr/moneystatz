@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 
 class Header extends React.Component {
     render() {
-        console.log(this.props)
         return (
             <div className="Header-container">
                 <img className="Header-img-button" src={left} alt="Left Button" onClick={this.previous}/>

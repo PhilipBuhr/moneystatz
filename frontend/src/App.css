@@ -2,11 +2,9 @@
   background-color: #282c34;
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 160px auto;
-  grid-template-areas:
-    "head head"
-    "table chart";
+  grid-template:
+    "head head" 160px
+    "table chart" 1fr / 1fr 1fr;
 }
 
 .App-head {
@@ -17,8 +15,12 @@
 .App-table {
   grid-area: table;
   background: #BBBBBB;
+  resize: horizontal;
+  overflow: auto;
 }
 
 .App-chart {
   grid-area: chart;
+  /*resize: both;*/
+  overflow: auto;
 }

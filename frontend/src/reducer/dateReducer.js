@@ -4,7 +4,8 @@ const defaultState = {
     month: new Date().getMonth(),
     year: new Date().getFullYear(),
     loading: false,
-    transactions: []
+    transactions: [],
+    jars: []
 };
 
 export default (state = defaultState, action) => {
@@ -14,8 +15,7 @@ export default (state = defaultState, action) => {
         case (Types.REQUEST_TRANSACTIONS):
             return {...state, loading: true};
         case (Types.RECEIVE_TRANSACTIONS):
-            console.log(action);
-            return {...state, loading: false, transactions: action.payload['transactions']};
+            return {...state, loading: false, transactions: action.payload['transactions'], jars: action.payload['jars']};
         default:
             return state;
     }

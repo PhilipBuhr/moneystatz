@@ -28,5 +28,8 @@ def transactions(request):
                 "date": "2020-03-05",
                 "description": "Essen für die Nutten"
             }
+        ],
+        "jars": [
+            "Einkommen", "Notwendigkeiten", "Spaß", "Passives Einkommen"
         ]
     })

@@ -1,0 +1,18 @@
+.Column-container {
+    min-width: 80px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    border-collapse: collapse;
+}
+.Column-cell {
+    min-height: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 8px;
+    border: 1px solid black;
+}
