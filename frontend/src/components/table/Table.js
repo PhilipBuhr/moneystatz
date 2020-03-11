@@ -11,8 +11,13 @@ class Table extends React.Component {
 
     renderColumns = () => {
         return this.props.jars.map(jar => (
-            <Column jar={jar} transactions={this.findTransactions(jar)}/>
+            <Column jar={jar} transactions={this.findTransactions(jar)} minCells={this.findNumberOfCells()}/>
         ))
+    };
+
+    findNumberOfCells = () => {
+        return Math.max(...this.props.jars.map(jar => this.findTransactions(jar))
+            .map(transactions => transactions.length));
     };
 
     render() {
@@ -23,6 +28,7 @@ class Table extends React.Component {
         )
     }
 }
+
 const mapStateToProps = state => ({
     transactions: state.dateState.transactions,
     jars: state.dateState.jars
