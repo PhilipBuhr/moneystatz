@@ -1,24 +1,31 @@
 import React from "react";
 import './Column.css'
+import Cell from "./Cell";
 
 class Column extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {transactions: this.props.transactions}
+    }
+
     renderCells = () => {
-        return this.props.transactions.map(transaction => (
-            <div className="Column-cell">{transaction.amount}</div>
+        return this.state.transactions.map(transaction => (
+            <Cell transaction={transaction} on/>
         ))
     };
 
     renderExtraCells = () => {
         console.log(this.props.minCells);
         const emptyCells = [];
-        if (this.props.minCells > this.props.transactions.length) {
-            console.log('mop');
-            for (let i = this.props.transactions.length; i < this.props.minCells; i++) {
-                emptyCells.push(<div className="Column-cell"/> )
-            }
+        for (let i = this.state.transactions.length; i < this.props.minCells + 1; i++) {
+            emptyCells.push(<Cell transaction={{amount: null, jar: this.props.jar, date:"TODO"}}/>)
         }
         return emptyCells;
+    };
+
+    addTransaction = transaction => {
+        this.setState({...this.state, transactions: [...this.state.transactions, transaction]})
     };
 
     render() {

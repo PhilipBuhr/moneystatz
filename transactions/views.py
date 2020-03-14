@@ -1,35 +1,35 @@
-from django.http import JsonResponse
+import json
+
+from django.http import JsonResponse, HttpResponse
+
+from transactions.services import find_jars, find_transactions, update_jar, update_transaction, DATE_FORMAT
 
 
 def transactions(request):
-    return JsonResponse({
-        "transactions": [
-            {
-                "jar": "Einkommen",
-                "amount": "2000",
-                "date": "2020-03-01",
-                "description": "bling bling"
-            },
-            {
-                "jar": "Spaß",
-                "amount": "100",
-                "date": "2020-03-06",
-                "description": "Koks"
-            },
-            {
-                "jar": "Spaß",
-                "amount": "200",
-                "date": "2020-03-06",
-                "description": "Nutten"
-            },
-            {
-                "jar": "Notwendigkeiten",
-                "amount": "5.45",
-                "date": "2020-03-05",
-                "description": "Essen für die Nutten"
-            }
-        ],
-        "jars": [
-            "Einkommen", "Notwendigkeiten", "Spaß", "Passives Einkommen"
-        ]
-    })
+    if request.method == 'GET':
+        from_date = request.GET.get('from')
+        to_date = request.GET.get('to')
+        response_body = {"transactions": find_transactions(from_date, to_date), 'jars': find_jars()}
+        return JsonResponse(response_body)
+    if request.method == 'POST':
+        body = parse_body(request)
+        transaction = update_transaction(body['transaction'])
+        return JsonResponse({
+            'uuid': transaction.uuid,
+            'amount': transaction.amount,
+            'date': transaction.date.strftime(DATE_FORMAT),
+            'jar': transaction.jar.name
+        })
+
+
+def jars(request):
+    if not request.method == 'POST':
+        return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: POST')
+    request_body = parse_body(request)
+    name = request_body['jar']
+    jar = update_jar(name)
+    return JsonResponse({'jar': jar.name})
+
+
+def parse_body(request):
+    return json.loads(request.body.decode('utf-8'))
