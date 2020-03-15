@@ -4,13 +4,8 @@ import Cell from "./Cell";
 
 class Column extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {transactions: this.props.transactions}
-    }
-
     renderCells = () => {
-        return this.state.transactions.map(transaction => (
+        return this.props.transactions.map(transaction => (
             <Cell transaction={transaction} on/>
         ))
     };
@@ -18,14 +13,10 @@ class Column extends React.Component {
     renderExtraCells = () => {
         console.log(this.props.minCells);
         const emptyCells = [];
-        for (let i = this.state.transactions.length; i < this.props.minCells + 1; i++) {
-            emptyCells.push(<Cell transaction={{amount: null, jar: this.props.jar, date:"TODO"}}/>)
+        for (let i = this.props.transactions.length; i < this.props.minCells + 1; i++) {
+            emptyCells.push(<Cell transaction={{amount: null, jar: this.props.jar, date: "TODO"}}/>)
         }
         return emptyCells;
-    };
-
-    addTransaction = transaction => {
-        this.setState({...this.state, transactions: [...this.state.transactions, transaction]})
     };
 
     render() {
