@@ -1,3 +1,5 @@
+import {Transactions} from "../service/transactions";
+
 export const Types = {
     SET_DATE: 'SET_DATE',
     REQUEST_TRANSACTIONS: 'REQUEST_TRANSACTIONS',
@@ -49,6 +51,6 @@ const requestTransactions = () => ({
 
 const receiveTransactions = json => ({
     type: Types.RECEIVE_TRANSACTIONS,
-    payload: json
+    payload: Transactions.parse(json)
 });
 

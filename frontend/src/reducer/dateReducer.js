@@ -1,11 +1,11 @@
 import {Types} from '../actions/dateActions'
 import {Month} from "../service/month";
+import {Transactions} from "../service/transactions";
 
 const defaultState = {
     month: Month.from(new Date()),
     loading: false,
-    transactions: [],
-    jars: []
+    transactions: new Transactions([])
 };
 
 export default (state = defaultState, action) => {
@@ -15,7 +15,7 @@ export default (state = defaultState, action) => {
         case (Types.REQUEST_TRANSACTIONS):
             return {...state, loading: true};
         case (Types.RECEIVE_TRANSACTIONS):
-            return {...state, loading: false, transactions: action.payload['transactions'], jars: action.payload['jars']};
+            return {...state, loading: false, transactions: action.payload};
         default:
             return state;
     }
