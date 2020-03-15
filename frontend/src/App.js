@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import Header from "./components/head/Header";
 import Table from "./components/table/Table";
-import {loadDateAction} from "./actions/dateActions";
+import {loadForMonth} from "./actions/dateActions";
 import {connect} from "react-redux";
+import {Month} from "./service/month";
 
 class App extends React.Component {
 
     componentDidMount() {
-        this.props.loadDate(new Date());
+        this.props.loadForMonth(Month.from(new Date()));
     }
 
     render() {
@@ -23,6 +24,6 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    loadDate: (date) => dispatch(loadDateAction(date))
+    loadForMonth: (date) => dispatch(loadForMonth(date))
 });
 export default connect(() => {}, mapDispatchToProps)(App);

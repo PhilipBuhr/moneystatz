@@ -1,8 +1,8 @@
 import {Types} from '../actions/dateActions'
+import {Month} from "../service/month";
 
 const defaultState = {
-    month: new Date().getMonth(),
-    year: new Date().getFullYear(),
+    month: Month.from(new Date()),
     loading: false,
     transactions: [],
     jars: []
@@ -11,7 +11,7 @@ const defaultState = {
 export default (state = defaultState, action) => {
     switch (action.type) {
         case (Types.SET_DATE):
-            return {...state, month: action.month, year: action.year};
+            return {...state, month: action.month};
         case (Types.REQUEST_TRANSACTIONS):
             return {...state, loading: true};
         case (Types.RECEIVE_TRANSACTIONS):

@@ -10,24 +10,24 @@ class Header extends React.Component {
         return (
             <div className="Header-container">
                 <img className="Header-img-button" src={left} alt="Left Button" onClick={this.previous}/>
-                <span className="Header-month">{this.props.date.toLocaleString('default', { month: 'long' })}</span>
-                <span>{this.props.date.getFullYear()}</span>
+                <span className="Header-month">{this.props.month.getMonthName()}</span>
+                <span>{this.props.month.year}</span>
                 <img className="Header-img-button" src={right} alt="Right Button" onClick={this.next}/>
             </div>
         );
     }
 
     previous = () => {
-        this.props.previousDateAction(this.props.date);
+        this.props.previousDateAction(this.props.month);
     };
 
     next = () => {
-        this.props.nextDateAction(this.props.date);
+        this.props.nextDateAction(this.props.month);
     };
 }
 
 const mapStateToProps = state => ({
-    date: new Date(state.dateState.year, state.dateState.month)
+    month: state.dateState.month
 });
 const mapDispatchToProps = dispatch => ({
     previousDateAction: date => dispatch(previousDateAction(date)),
