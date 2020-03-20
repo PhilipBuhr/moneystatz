@@ -1,29 +1,20 @@
 import {Transactions} from "../service/transactions";
+import {RestService} from "../service/restService";
 
-export const Types = {
+const restService = new RestService('localhost', 8000);
+
+export const DateTypes = {
     SET_DATE: 'SET_DATE',
     REQUEST_TRANSACTIONS: 'REQUEST_TRANSACTIONS',
     RECEIVE_TRANSACTIONS: 'RECEIVE_TRANSACTIONS'
 };
-
-const setMonthAction = (month) => ({
-    type: Types.SET_DATE,
-    month,
-});
-
-
-function fetchTransactionsForMonth(month, dispatch) {
-    dispatch(setMonthAction(month));
-    dispatch(requestTransactions());
-
-    return loadTransactions(month, dispatch)
-}
 
 export const loadForMonth = (month) => {
     return dispatch => {
         return fetchTransactionsForMonth(month, dispatch)
     }
 };
+
 
 export const previousDateAction = (month) => {
     return dispatch => {
@@ -37,20 +28,36 @@ export const nextDateAction = (month) => {
     }
 };
 
+const setMonthAction = (month) => ({
+    type: DateTypes.SET_DATE,
+    month,
+});
+
+function fetchTransactionsForMonth(month, dispatch) {
+    dispatch(setMonthAction(month));
+    dispatch(requestTransactions());
+
+    return loadTransactions(month, dispatch)
+}
+
 const loadTransactions = (month, dispatch) => {
     const first = month.getFirstAsString();
     const last = month.getLastAsString();
-    return fetch(`http://localhost:8000/api/transactions?from=${first}&to=${last}`)
-        .then(response => response.json(), error => console.log(error))
-        .then(json => dispatch(receiveTransactions(json)));
+    return restService.get('api/transactions', {from: first, to: last})
+        .then(
+            response => dispatch(receiveTransactions(response.data)),
+            error => console.log(error)
+        );
 };
 
 const requestTransactions = () => ({
-    type: Types.REQUEST_TRANSACTIONS
+    type: DateTypes.REQUEST_TRANSACTIONS
 });
 
 const receiveTransactions = json => ({
-    type: Types.RECEIVE_TRANSACTIONS,
+    type: DateTypes.RECEIVE_TRANSACTIONS,
     payload: Transactions.parse(json)
 });
+
+
 

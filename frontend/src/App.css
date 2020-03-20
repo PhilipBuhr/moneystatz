@@ -9,14 +9,15 @@
 
 .App-head {
   grid-area: head;
-  background: #EEEEEE;
+  background: #282c34;
 }
 
 .App-table {
   grid-area: table;
-  background: #BBBBBB;
+  background: #282c34;
   resize: horizontal;
   overflow: auto;
+  border-right: 1px solid #BBBBBB;
 }
 
 .App-chart {

@@ -5,6 +5,7 @@ import Table from "./components/table/Table";
 import {loadForMonth} from "./actions/dateActions";
 import {connect} from "react-redux";
 import {Month} from "./service/month";
+import TransactionModal from "./components/transactionModal/TransactionModal";
 
 class App extends React.Component {
 
@@ -17,7 +18,8 @@ class App extends React.Component {
             <div className="App">
                 <div className="App-head"><Header/></div>
                 <div className="App-table"><Table/></div>
-                <div className="App-chart"></div>
+                <div className="App-chart"/>
+                <TransactionModal/>
             </div>
         );
     }
