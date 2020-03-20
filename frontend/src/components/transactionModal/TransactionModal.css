@@ -7,14 +7,60 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(42, 42, 42, 0.8);
+    background: rgba(24, 24, 24, 0.95);
 }
 
 .TransactionModal-modal {
     height: 400px;
     width: 800px;
-    background: #FFFFFF;
+    background: #282c34;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
 }
+
+.TransactionModal-body {
+    flex: 1;
+    padding: 32px;
+    display: grid;
+    grid-template-rows: repeat(3, 50px);
+    grid-template-columns: 120px auto;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.TransactionModal-label {
+    display: inline;
+}
+
+.TransactionModal-button-box {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    flex-direction: row;
+    height: 50px;
+    width: 100%;
+
+}
+
+.TransactionModal-button {
+    color: #FFFFFF;
+    border: none;
+    font-size: 24px;
+    margin-left: 3px;
+    border-radius: 3px;
+    width: 100px;
+}
+
+.close {
+    background: #BA1818;
+}
+
+.submit {
+    background: #0C780C;
+}
+
 
 .hidden {
     display: none;
