@@ -9,6 +9,7 @@ class Table extends React.Component {
         return this.props.transactions.jars.map(jar => (
             <Column
                 jar={jar}
+                key={jar}
                 transactions={this.props.transactions.get(jar)}
                 minCells={this.props.transactions.maxJarSize()}/>
         ))

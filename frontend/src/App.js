@@ -28,4 +28,4 @@ class App extends React.Component {
 const mapDispatchToProps = dispatch => ({
     loadForMonth: (date) => dispatch(loadForMonth(date))
 });
-export default connect(() => {}, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);

@@ -1,20 +1,21 @@
 import React from "react";
 import './Column.css'
 import Cell from "./Cell";
+import {v4 as uuid} from "uuid";
 
 class Column extends React.Component {
 
     renderCells = () => {
         return this.props.transactions.map(transaction => (
-            <Cell transaction={transaction} on/>
+            <Cell transaction={transaction} key={transaction.uuid}/>
         ))
     };
 
     renderExtraCells = () => {
-        console.log(this.props.minCells);
         const emptyCells = [];
         for (let i = this.props.transactions.length; i < this.props.minCells + 1; i++) {
-            emptyCells.push(<Cell transaction={{amount: null, jar: this.props.jar, date: "TODO"}}/>)
+            let transaction = {amount: '', jar: this.props.jar, date: "TODO", uuid: uuid()};
+            emptyCells.push(<Cell transaction={transaction} key={transaction.uuid} />)
         }
         return emptyCells;
     };

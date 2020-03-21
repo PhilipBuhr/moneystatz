@@ -43,7 +43,7 @@ function fetchTransactionsForMonth(month, dispatch) {
 const loadTransactions = (month, dispatch) => {
     const first = month.getFirstAsString();
     const last = month.getLastAsString();
-    return restService.get('api/transactions', {from: first, to: last})
+    restService.get('api/transactions', {from: first, to: last})
         .then(
             response => dispatch(receiveTransactions(response.data)),
             error => console.log(error)

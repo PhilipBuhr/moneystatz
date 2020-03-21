@@ -12,16 +12,16 @@ const defaultState = {
 
 export default (state = defaultState, action) => {
     switch (action.type) {
-        case (DateTypes.SET_DATE):
+        case DateTypes.SET_DATE:
             return {...state, month: action.month};
-        case (DateTypes.REQUEST_TRANSACTIONS):
+        case DateTypes.REQUEST_TRANSACTIONS:
             return {...state, loading: true};
-        case (DateTypes.RECEIVE_TRANSACTIONS):
+        case DateTypes.RECEIVE_TRANSACTIONS:
             return {...state, loading: false, transactions: action.payload};
-        case (TransactionTypes.CLOSE):
+        case TransactionTypes.CLOSE:
             return {...state, selectedTransaction: null};
-        case (TransactionTypes.SELECT):
-            return {...state, selectedTransaction: action.payload};
+        case TransactionTypes.SELECT:
+            return {...state, selectedTransaction: action.transaction};
         default:
             return state;
     }

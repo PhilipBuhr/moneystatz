@@ -10,6 +10,20 @@ export class RestService {
         return axios.get(`${this.url}/${path}${param_string}`);
     }
 
+    post(path, data) {
+        console.log(data);
+        const options = {
+            headers: {'Content-Type': 'application/json'}
+        };
+        // return axios.post(`${this.url}/${path}`, JSON.stringify(data), options);
+        return axios({
+            method: 'POST',
+            url: `${this.url}/${path}`,
+            data: data,
+            headers: options.headers
+        })
+    }
+
     buildUrlParams(params) {
         const url_params = [];
         for (let key in params) {

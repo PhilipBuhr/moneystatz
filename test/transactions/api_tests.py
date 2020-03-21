@@ -56,13 +56,12 @@ def test_add_new_jar(db):
 @pytest.mark.usefixtures('setup_db')
 def test_add_new_transaction(db):
     body = {
-        'transaction': {
-            'uuid': '73a77c33-9947-4a7f-b933-205748bdeba3',
-            'amount': 123,
-            'jar': 'Spaß',
-            'date': '2020-03-12'
-        }
+        'uuid': '73a77c33-9947-4a7f-b933-205748bdeba3',
+        'amount': 123,
+        'jar': 'Spaß',
+        'date': '2020-03-12'
     }
+
     response = client.post('/api/transactions', data=body, content_type='application/json')
     assert response.status_code == 200
 
@@ -75,13 +74,12 @@ def test_add_new_transaction(db):
 @pytest.mark.usefixtures('setup_db')
 def test_update_transaction(db):
     body = {
-        'transaction': {
-            'uuid': 'e268fdd9-aef4-4af9-9545-93758d486fa1',
-            'amount': 123,
-            'jar': 'Spaß',
-            'date': '2020-03-12'
-        }
+        'uuid': 'e268fdd9-aef4-4af9-9545-93758d486fa1',
+        'amount': 123,
+        'jar': 'Spaß',
+        'date': '2020-03-12'
     }
+
     response = client.post('/api/transactions', data=body, content_type='application/json')
     assert response.status_code == 200
 
