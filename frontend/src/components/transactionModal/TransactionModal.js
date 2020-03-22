@@ -3,7 +3,8 @@ import {connect} from "react-redux";
 import './TransactionModal.css';
 import check from './check-24px.svg';
 import closeIcon from './close-24px.svg';
-import {close, select, submit} from "../../actions/transactionActions"
+import deleteIcon from './delete-24px.svg';
+import {close, deleteTransaction, select, submit} from "../../actions/transactionActions"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -28,10 +29,13 @@ class TransactionModal extends React.Component {
                             <DatePicker selected={parse(date)} onChange={this.onChangeDate} dateFormat="dd.MM.yyyy"/>
                         </div>
                         <div className="TransactionModal-button-box">
+                            <button className="TransactionModal-button delete" onClick={this.onDelete}>
+                                <img className="TransactionModal-icon-button" src={deleteIcon} alt="Delete"/>
+                            </button>
                             <button className="TransactionModal-button submit" onClick={this.onSubmit}>
                                 <img className="TransactionModal-icon-button" src={check} alt="Submit"/>
                             </button>
-                            <button className="TransactionModal-button close" onClick={() => this.props.close()}>
+                            <button className="TransactionModal-button close" onClick={this.props.close}>
                                 <img className="TransactionModal-icon-button" src={closeIcon} alt="Cancel"/>
                             </button>
                         </div>
@@ -67,6 +71,10 @@ class TransactionModal extends React.Component {
     onSubmit = () => {
         this.props.submit(this.props.transaction, this.props.month);
     };
+
+    onDelete = () => {
+        this.props.deleteTransaction(this.props.transaction, this.props.month);
+    }
 }
 
 const mapStateToProps = state => ({
@@ -78,7 +86,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(close()),
     change: transaction => dispatch(select(transaction)),
-    submit: (transaction, month) => dispatch(submit(transaction, month))
+    submit: (transaction, month) => dispatch(submit(transaction, month)),
+    deleteTransaction: (transaction, month) => dispatch(deleteTransaction(transaction, month))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionModal);

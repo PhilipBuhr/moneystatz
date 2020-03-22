@@ -26,3 +26,13 @@ export const submit = (transaction, month) => {
             }, error => console.log(error));
     }
 };
+
+export const deleteTransaction = (transaction, month) => {
+    return dispatch => {
+        restService.delete('api/transactions', transaction.uuid)
+            .then(() => {
+                dispatch(close());
+                dispatch(loadForMonth(month));
+            }, error => console.error(error));
+    }
+};

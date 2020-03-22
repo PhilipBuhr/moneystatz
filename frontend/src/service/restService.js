@@ -11,17 +11,14 @@ export class RestService {
     }
 
     post(path, data) {
-        console.log(data);
         const options = {
             headers: {'Content-Type': 'application/json'}
         };
-        // return axios.post(`${this.url}/${path}`, JSON.stringify(data), options);
-        return axios({
-            method: 'POST',
-            url: `${this.url}/${path}`,
-            data: data,
-            headers: options.headers
-        })
+        return axios.post(`${this.url}/${path}`, data, options);
+    }
+
+    delete(path, id) {
+        return axios.delete(`${this.url}/${path}/${encodeURIComponent(id)}`);
     }
 
     buildUrlParams(params) {

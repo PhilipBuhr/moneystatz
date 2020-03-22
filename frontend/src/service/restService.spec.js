@@ -37,4 +37,12 @@ describe('RestService', () => {
         expect(response.transaction.uuid).toEqual('uuid');
         expect(axios.post).toHaveBeenCalledWith('http://localhost:8000/some/url', transaction, {headers: {'Content-Type': 'application/json'}})
     });
+
+    it('should deletes resource with id', async () => {
+        expect.assertions(1);
+        axios.delete.mockImplementationOnce(() => Promise.resolve({}));
+
+        await restService.delete('some/url', 'uuid1234-5678');
+        expect(axios.delete).toHaveBeenCalledWith('http://localhost:8000/some/url/uuid1234-5678');
+    });
 });
