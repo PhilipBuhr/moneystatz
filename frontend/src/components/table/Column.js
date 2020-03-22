@@ -14,7 +14,7 @@ class Column extends React.Component {
     renderExtraCells = () => {
         const emptyCells = [];
         for (let i = this.props.transactions.length; i < this.props.minCells + 1; i++) {
-            let transaction = {amount: '', jar: this.props.jar, date: "TODO", uuid: uuid()};
+            let transaction = {amount: '', jar: this.props.jar, date: this.props.month.getFirstAsString(), uuid: uuid()};
             emptyCells.push(<Cell transaction={transaction} key={transaction.uuid} />)
         }
         return emptyCells;

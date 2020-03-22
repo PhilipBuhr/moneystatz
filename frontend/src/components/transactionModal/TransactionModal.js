@@ -1,31 +1,38 @@
 import React from "react";
 import {connect} from "react-redux";
 import './TransactionModal.css';
+import check from './check-24px.svg';
+import closeIcon from './close-24px.svg';
 import {close, select, submit} from "../../actions/transactionActions"
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+
+import {format, parse} from "../../service/dateUtil";
 
 class TransactionModal extends React.Component {
 
     render() {
         if (this.props.active) {
+            const {amount, jar, date} = this.props.transaction;
             return (
                 <div className="TransactionModal-container" onClick={this.onBackgroundClick}>
                     <div className="TransactionModal-modal">
                         <div className="TransactionModal-body">
                             <div className="TransactionModal-label">Amount</div>
-                            <input value={this.props.transaction.amount}
+                            <input value={amount}
                                    onChange={event => this.onChange(event, 'amount')}/>
                             <div className="TransactionModal-label">Jar</div>
-                            <input value={this.props.transaction.jar} onChange={event => this.onChange(event, 'jar')}/>
+                            <input value={jar} onChange={event => this.onChange(event, 'jar')}/>
                             <div className="TransactionModal-label">Date</div>
-                            <input value={this.props.transaction.date}
-                                   onChange={event => this.onChange(event, 'date')}/>
+                            <DatePicker selected={parse(date)} onChange={this.onChangeDate} dateFormat="dd.MM.yyyy"/>
                         </div>
                         <div className="TransactionModal-button-box">
                             <button className="TransactionModal-button submit" onClick={this.onSubmit}>
-                                Submit
+                                <img className="TransactionModal-icon-button" src={check} alt="Submit"/>
                             </button>
                             <button className="TransactionModal-button close" onClick={() => this.props.close()}>
-                                Close
+                                <img className="TransactionModal-icon-button" src={closeIcon} alt="Cancel"/>
                             </button>
                         </div>
                     </div>
@@ -34,6 +41,13 @@ class TransactionModal extends React.Component {
         }
         return null;
     }
+
+    onChangeDate = date => {
+        this.props.change({
+            ...this.props.transaction,
+            date: format(date)
+        })
+    };
 
     onBackgroundClick = event => {
         if (event.target.closest('.TransactionModal-modal')) {

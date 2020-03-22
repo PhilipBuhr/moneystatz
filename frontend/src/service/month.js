@@ -1,3 +1,5 @@
+import {format} from "./dateUtil";
+
 export class Month {
     constructor(month, year) {
         while (month > 12) {
@@ -26,12 +28,12 @@ export class Month {
 
     getFirstAsString() {
         let first = new Date(Date.UTC(this.year, this.month -1 , 1));
-        return first.toISOString().substring(0, 10);
+        return format(first);
     }
 
     getLastAsString() {
         const last = new Date(Date.UTC(this.year, this.month, 0));
-        return last.toISOString().substring(0, 10);
+        return format(last);
     }
 
     getMonthName() {

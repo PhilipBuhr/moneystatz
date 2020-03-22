@@ -10,6 +10,7 @@ class Table extends React.Component {
             <Column
                 jar={jar}
                 key={jar}
+                month={this.props.month}
                 transactions={this.props.transactions.get(jar)}
                 minCells={this.props.transactions.maxJarSize()}/>
         ))
@@ -26,6 +27,7 @@ class Table extends React.Component {
 
 const mapStateToProps = state => ({
     transactions: state.dateState.transactions,
+    month: state.dateState.month
 });
 
 export default connect(mapStateToProps)(Table);

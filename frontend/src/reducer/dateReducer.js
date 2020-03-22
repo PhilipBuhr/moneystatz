@@ -7,7 +7,7 @@ const defaultState = {
     month: Month.from(new Date()),
     loading: false,
     transactions: new Transactions([]),
-    selectedTransaction: {uuid: '374ed882-607e-4203-9c8c-380fe38c1a51', amount: 2000, date: '2020-03-15', jar: 'Einkommen'}
+    selectedTransaction: null
 };
 
 export default (state = defaultState, action) => {
