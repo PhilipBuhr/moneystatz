@@ -43,3 +43,8 @@ def update_transaction(transaction):
     )
     transaction.save()
     return transaction
+
+
+def delete_transaction(uuid):
+    transaction = Transaction.objects.get(uuid=uuid)
+    transaction.delete()

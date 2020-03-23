@@ -94,6 +94,17 @@ def test_update_transaction(db):
     assert transaction['date'] == '2020-03-12'
 
 
+@pytest.mark.usefixtures('setup_db')
+def test_delete_transaction(db):
+    response = client.delete('/api/transactions/e247c198-07b5-4a1a-9a1e-72bf67b1ef0f')
+    assert response.status_code == 200
+
+    response_json = load_transactions()
+    uuids = [transaction['uuid'] for transaction in response_json['transactions']]
+    assert len(uuids) == 3
+    assert 'e247c198-07b5-4a1a-9a1e-72bf67b1ef0f' not in uuids
+
+
 def load_transactions():
     request_params = {
         "from": "2020-03-01",

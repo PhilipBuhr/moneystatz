@@ -3,7 +3,8 @@ import json
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
-from transactions.services import find_jars, find_transactions, update_jar, update_transaction, DATE_FORMAT
+from transactions.services import find_jars, find_transactions, update_jar, update_transaction, delete_transaction, \
+    DATE_FORMAT
 
 
 @csrf_exempt
@@ -15,15 +16,16 @@ def transactions(request):
         return JsonResponse(response_body)
     if request.method == 'POST':
         body = parse_body(request)
-        transaction = update_transaction(body)
+        transaction_model = update_transaction(body)
         return JsonResponse({
             'transaction': {
-                'uuid': transaction.uuid,
-                'amount': transaction.amount,
-                'date': transaction.date.strftime(DATE_FORMAT),
-                'jar': transaction.jar.name
+                'uuid': transaction_model.uuid,
+                'amount': transaction_model.amount,
+                'date': transaction_model.date.strftime(DATE_FORMAT),
+                'jar': transaction_model.jar.name
             }
         })
+    return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: GET, POST')
 
 
 @csrf_exempt
@@ -34,6 +36,14 @@ def jars(request):
     name = request_body['jar']
     jar = update_jar(name)
     return JsonResponse({'jar': jar.name})
+
+
+@csrf_exempt
+def transaction(request, uuid):
+    if not request.method == 'DELETE':
+        return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: DELETE')
+    delete_transaction(uuid)
+    return JsonResponse({})
 
 
 def parse_body(request):
