@@ -7,7 +7,8 @@ const defaultState = {
     month: Month.from(new Date()),
     loading: false,
     transactions: new Transactions([]),
-    selectedTransaction: null
+    selectedTransaction: null,
+    jar_modal: false
 };
 
 export default (state = defaultState, action) => {
@@ -22,6 +23,11 @@ export default (state = defaultState, action) => {
             return {...state, selectedTransaction: null};
         case TransactionTypes.SELECT:
             return {...state, selectedTransaction: action.transaction};
+        case TransactionTypes.ADD_JAR:
+            console.log('open');
+            return {...state, jar_modal: true};
+        case TransactionTypes.CLOSE_JAR:
+            return {...state, jar_modal: false};
         default:
             return state;
     }

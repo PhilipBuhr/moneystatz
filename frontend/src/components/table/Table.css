@@ -6,3 +6,16 @@
     align-items: flex-start;
     padding: 15px 50px;
 }
+
+.Table-add-jar-button {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Table-add-jar-button-icon {
+    height: 32px;
+    width: 32px;
+}

@@ -5,7 +5,8 @@ const restService = new RestService();
 export const TransactionTypes = {
     CLOSE: "CLOSE",
     SELECT: "SELECT",
-    SUBMIT: "SUBMIT"
+    ADD_JAR: "ADD_JAR",
+    CLOSE_JAR: "CLOSE_JAR"
 };
 
 export const close = () => ({
@@ -34,5 +35,17 @@ export const deleteTransaction = (transaction, month) => {
                 dispatch(close());
                 dispatch(loadForMonth(month));
             }, error => console.error(error));
+    }
+};
+
+export const openAddJar = () => {
+    return {
+        type: TransactionTypes.ADD_JAR
+    }
+};
+
+export const closeAddJar = () => {
+    return {
+        type: TransactionTypes.CLOSE_JAR
     }
 };
