@@ -49,3 +49,13 @@ export const closeAddJar = () => {
         type: TransactionTypes.CLOSE_JAR
     }
 };
+
+export const submitJar = (jarName, month) => {
+    return dispatch => {
+        restService.post('api/jars', {jar: jarName})
+            .then(() => {
+                dispatch(closeAddJar());
+                dispatch(loadForMonth(month))
+            })
+    }
+};
