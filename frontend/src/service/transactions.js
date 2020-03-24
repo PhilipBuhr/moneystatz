@@ -30,4 +30,13 @@ export class Transactions {
             .map(transactions => transactions.length)
             .reduce((max, size) => Math.max(max, size), 0);
     }
+
+    toTotals() {
+        return this.jars.map(jar => {
+            const total = this.get(jar)
+                .map(transaction => transaction.amount)
+                .reduce((sum, amount) => sum + amount, 0);
+            return {jar: jar, total: total}
+        })
+    }
 }

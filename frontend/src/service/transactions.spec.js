@@ -48,4 +48,15 @@ describe('Transaction', () => {
 
         expect(transactions.maxJarSize()).toEqual(2);
     });
+
+    it('should return totals per jar', () => {
+        const transactions = Transactions.parse(json);
+
+        const data = transactions.toTotals();
+        expect(data.length).toEqual(3);
+        const jars = data.map(d => d.jar);
+        expect(jars).toEqual(['Einkommen', 'Spaß', 'Notwendigkeiten']);
+        const totals = data.map(d => d.total);
+        expect(totals).toEqual([1000, 1100, 0]);
+    });
 });

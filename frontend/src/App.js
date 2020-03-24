@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {Month} from "./service/month";
 import TransactionModal from "./components/transactionModal/TransactionModal";
 import AddJarModal from "./components/addJarModal/AddJarModal";
+import BarChart from "./components/chart/BarChart";
 
 class App extends React.Component {
 
@@ -19,7 +20,7 @@ class App extends React.Component {
             <div className="App">
                 <div className="App-head"><Header/></div>
                 <div className="App-table"><Table/></div>
-                <div className="App-chart"/>
+                <div className="App-chart"><BarChart/></div>
                 <TransactionModal/>
                 <AddJarModal/>
             </div>
