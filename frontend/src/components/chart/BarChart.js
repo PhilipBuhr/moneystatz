@@ -7,8 +7,8 @@ class BarChart extends React.Component {
 
     constructor(props) {
         super(props);
-        this.width = 600;
-        this.height = 400;
+        this.width = 800;
+        this.height = 600;
     }
 
 
@@ -67,8 +67,6 @@ class BarChart extends React.Component {
             .attr('y', d => yScale(d.total))
             .attr('width', xScale.bandwidth)
             .attr('height', d => canvasHeight - yScale(d.total));
-
-
     };
 
     render() {

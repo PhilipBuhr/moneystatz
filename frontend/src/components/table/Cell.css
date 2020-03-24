@@ -15,4 +15,5 @@
     padding: 0 8px;
     border: none;
     text-align: center;
+    text-overflow: ellipsis;
 }
