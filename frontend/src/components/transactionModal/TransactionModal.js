@@ -10,6 +10,16 @@ import {format, parse} from "../../service/dateUtil";
 import Modal from "../commons/Modal";
 
 class TransactionModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.inputAmount = null;
+    }
+
+    componentDidUpdate() {
+        if (this.inputAmount) {
+            this.inputAmount.focus();
+        }
+    }
 
     render() {
         if (this.props.active) {
@@ -19,7 +29,9 @@ class TransactionModal extends React.Component {
                     <div className="TransactionModal-body">
                         <div className="TransactionModal-label">Amount</div>
                         <input value={amount}
-                               onChange={event => this.onChange(event, 'amount')}/>
+                               onChange={event => this.onChange(event, 'amount')}
+                               ref={input => this.inputAmount = input}
+                        />
                         <div className="TransactionModal-label">Jar</div>
                         <input value={jar} onChange={event => this.onChange(event, 'jar')}/>
                         <div className="TransactionModal-label">Date</div>
@@ -36,13 +48,6 @@ class TransactionModal extends React.Component {
             ...this.props.transaction,
             date: format(date)
         })
-    };
-
-    onBackgroundClick = event => {
-        if (event.target.closest('.TransactionModal-modal')) {
-            return;
-        }
-        this.props.close();
     };
 
     onChange(event, property) {

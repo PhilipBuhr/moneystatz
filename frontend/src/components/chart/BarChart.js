@@ -67,6 +67,14 @@ class BarChart extends React.Component {
             .attr('y', d => yScale(d.total))
             .attr('width', xScale.bandwidth)
             .attr('height', d => canvasHeight - yScale(d.total));
+
+        g.selectAll('.percentage')
+            .data(data).enter()
+            .append('text')
+            .attr('class', 'percentage')
+            .attr('x', (d, i) => xScale(i))
+            .attr('y', d => yScale(d.total))
+            .text(d => `${d.percentage.toFixed(0)}%`)
     };
 
     render() {

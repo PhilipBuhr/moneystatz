@@ -31,12 +31,23 @@ export class Transactions {
             .reduce((max, size) => Math.max(max, size), 0);
     }
 
-    toTotals() {
-        return this.jars.map(jar => {
-            const total = this.get(jar)
+    _getTotal(jar) {
+        return  this.get(jar)
                 .map(transaction => transaction.amount)
                 .reduce((sum, amount) => sum + amount, 0);
-            return {jar: jar, total: total}
+    }
+
+    _getPercentage(jar) {
+        let totalIncome = this._getTotal("Einkommen");
+        totalIncome = totalIncome ? totalIncome : 0.1;
+        return 100 * this._getTotal(jar) / totalIncome
+    }
+
+    toTotals() {
+        return this.jars.map(jar => {
+            const total = this._getTotal(jar);
+            const percentage = this._getPercentage(jar);
+            return {jar: jar, total: total, percentage: percentage}
         })
     }
 }

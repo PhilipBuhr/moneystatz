@@ -58,5 +58,7 @@ describe('Transaction', () => {
         expect(jars).toEqual(['Einkommen', 'Spaß', 'Notwendigkeiten']);
         const totals = data.map(d => d.total);
         expect(totals).toEqual([1000, 1100, 0]);
+        const percentages = data.map(d => d.percentage);
+        expect(percentages).toEqual([100, 110, 0]);
     });
 });
