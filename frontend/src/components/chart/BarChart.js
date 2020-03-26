@@ -41,7 +41,6 @@ class BarChart extends React.Component {
             .attr('transform', `translate(${margin / 2}, ${margin / 2})`);
 
         const data = this.props.transactions.toTotals();
-        console.log(data);
 
         // noinspection JSCheckFunctionSignatures
         xScale.domain(d3.range(data.length));

@@ -30,10 +30,11 @@ class TransactionModal extends React.Component {
                         <div className="TransactionModal-label">Amount</div>
                         <input value={amount}
                                onChange={event => this.onChange(event, 'amount')}
+                               onKeyPress={this.submitOnEnter}
                                ref={input => this.inputAmount = input}
                         />
                         <div className="TransactionModal-label">Jar</div>
-                        <input value={jar} onChange={event => this.onChange(event, 'jar')}/>
+                        <input value={jar} onChange={event => this.onChange(event, 'jar')} onKeyPress={this.submitOnEnter}/>
                         <div className="TransactionModal-label">Date</div>
                         <DatePicker selected={parse(date)} onChange={this.onChangeDate} dateFormat="dd.MM.yyyy"/>
                     </div>
@@ -57,6 +58,12 @@ class TransactionModal extends React.Component {
         newTransaction[property] = event.target.value;
         this.props.change(newTransaction);
     }
+
+    submitOnEnter = (event) => {
+        if (event.key === 'Enter') {
+            this.onSubmit();
+        }
+    };
 
     onSubmit = () => {
         this.props.submit(this.props.transaction, this.props.month);

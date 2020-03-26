@@ -20,3 +20,8 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.Column-total {
+    background: #DDDDDD;
+    border-bottom: 1px double black;
+}

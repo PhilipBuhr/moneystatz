@@ -24,6 +24,7 @@ class Column extends React.Component {
         return (
             <div className="Column-container">
                 <div className="Column-cell">{this.props.jar}</div>
+                <div className="Column-cell Column-total">{this.props.total.toFixed(2)}</div>
                 {this.renderCells()}
                 {this.renderExtraCells()}
             </div>

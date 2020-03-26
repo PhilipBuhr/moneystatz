@@ -61,4 +61,18 @@ describe('Transaction', () => {
         const percentages = data.map(d => d.percentage);
         expect(percentages).toEqual([100, 110, 0]);
     });
+
+    it('should calculate total for given jar', () => {
+        const transactions = Transactions.parse(json);
+
+        expect(transactions.getTotal('Einkommen')).toEqual(1000);
+        expect(transactions.getTotal('Spaß')).toEqual(1100);
+        expect(transactions.getTotal('Notwendigkeiten')).toEqual(0);
+    });
+
+    it('should calculate balance', () => {
+        const transactions = Transactions.parse(json);
+
+        expect(transactions.calculateBalance()).toEqual(-100)
+    });
 });

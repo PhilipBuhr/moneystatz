@@ -14,6 +14,7 @@ class Table extends React.Component {
                 key={jar}
                 month={this.props.month}
                 transactions={this.props.transactions.get(jar)}
+                total={this.props.transactions.getTotal(jar)}
                 minCells={this.props.transactions.maxJarSize()}/>
         ))
     };
