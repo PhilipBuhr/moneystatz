@@ -9,10 +9,15 @@ class Header extends React.Component {
     render() {
         return (
             <div className="Header-container">
-                <img className="Header-img-button" src={left} alt="Left Button" onClick={this.previous}/>
-                <span className="Header-month">{this.props.month.getMonthName()}</span>
-                <span>{this.props.month.year}</span>
-                <img className="Header-img-button" src={right} alt="Right Button" onClick={this.next}/>
+                <div className="Header-month-selector">
+                    <img className="Header-img-button" src={left} alt="Left Button" onClick={this.previous}/>
+                    <span className="Header-month">{this.props.month.getMonthName()}</span>
+                    <span>{this.props.month.year}</span>
+                    <img className="Header-img-button" src={right} alt="Right Button" onClick={this.next}/>
+                </div>
+                <div className="Header-balance">
+                    Balance: {this.props.balance.toFixed(2)}
+                </div>
             </div>
         );
     }
@@ -27,7 +32,8 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    month: state.dateState.month
+    month: state.dateState.month,
+    balance: state.dateState.transactions.calculateBalance()
 });
 const mapDispatchToProps = dispatch => ({
     previousDateAction: date => dispatch(previousDateAction(date)),
