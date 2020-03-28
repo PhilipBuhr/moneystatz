@@ -2,11 +2,11 @@ import React from 'react';
 import './App.css';
 import Header from "./components/head/Header";
 import Table from "./components/table/Table";
-import {loadForMonth} from "./actions/dateActions";
-import {connect} from "react-redux";
-import {Month} from "./service/month";
+import { loadForMonth } from "./actions/dateActions";
+import { connect } from "react-redux";
+import { Month } from "./service/month";
 import TransactionModal from "./components/transactionModal/TransactionModal";
-import AddJarModal from "./components/addJarModal/AddJarModal";
+import AddJarModal from "./components/jarModal/JarModal";
 import BarChart from "./components/chart/BarChart";
 
 class App extends React.Component {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RestService} from "./restService";
+import { RestService } from "./restService";
 
 jest.mock('axios');
 

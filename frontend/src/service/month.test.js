@@ -1,4 +1,4 @@
-import {Month} from "./month";
+import { Month } from "./month";
 
 describe('Month', () => {
     it('should set month to calendar number', () => {

@@ -1,5 +1,5 @@
-import {RestService} from "../service/restService";
-import {loadForMonth} from "./dateActions";
+import { RestService } from "../service/restService";
+import { loadForMonth } from "./dateActions";
 
 const restService = new RestService();
 export const TransactionTypes = {
@@ -9,7 +9,7 @@ export const TransactionTypes = {
     CLOSE_JAR: "CLOSE_JAR"
 };
 
-export const close = () => ({
+export const closeTransaction = () => ({
     type: TransactionTypes.CLOSE
 });
 
@@ -22,7 +22,7 @@ export const submit = (transaction, month) => {
     return dispatch => {
         restService.post('api/transactions', transaction)
             .then(() => {
-                dispatch(close());
+                dispatch(closeTransaction());
                 dispatch(loadForMonth(month));
             }, error => console.log(error));
     }
@@ -32,7 +32,7 @@ export const deleteTransaction = (transaction, month) => {
     return dispatch => {
         restService.delete('api/transactions', transaction.uuid)
             .then(() => {
-                dispatch(close());
+                dispatch(closeTransaction());
                 dispatch(loadForMonth(month));
             }, error => console.error(error));
     }

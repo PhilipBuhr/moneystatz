@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JarModal should render: JarModalSnapshot 1`] = `
+<div>
+  <div
+    class="Modal-container"
+  >
+    <div
+      class="Modal-modal"
+    >
+      <div
+        class="Modal-body"
+      >
+        <div
+          class="AddJarModal-body"
+        >
+          <div>
+            Jar
+          </div>
+          <input
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="Modal-button-box"
+      >
+        <button
+          class="Modal-button submit"
+        >
+          <img
+            alt="Submit"
+            class="Modal-icon-button"
+            src="check-24px.svg"
+          />
+        </button>
+        <button
+          class="Modal-button close"
+        >
+          <img
+            alt="Cancel"
+            class="Modal-icon-button"
+            src="close-24px.svg"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

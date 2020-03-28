@@ -1,4 +1,4 @@
-import {format, parse} from "./dateUtil";
+import { format, parse } from "./dateUtil";
 
 describe('dateUtil', () => {
     it('should return YYYY-mm-dd date format', () => {

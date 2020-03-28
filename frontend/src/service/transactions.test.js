@@ -1,4 +1,4 @@
-import {Transactions} from "./transactions";
+import { Transactions } from "./transactions";
 
 describe('Transaction', () => {
     const json = {

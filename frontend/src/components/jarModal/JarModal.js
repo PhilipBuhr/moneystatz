@@ -1,10 +1,10 @@
 import React from "react";
-import {connect} from "react-redux";
-import './AddJarModal.css';
+import { connect } from "react-redux";
+import './JarModal.css';
 import Modal from "../commons/Modal";
-import {closeAddJar, submitJar} from "../../actions/transactionActions";
+import { closeAddJar, submitJar } from "../../actions/transactionActions";
 
-class AddJarModal extends React.Component {
+export class JarModal extends React.Component {
 
     constructor(props) {
         super(props);
@@ -52,4 +52,4 @@ const mapDispatchToProps = dispatch => ({
     submit: (jarName, month) => dispatch(submitJar(jarName, month))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddJarModal);
+export default connect(mapStateToProps, mapDispatchToProps)(JarModal);

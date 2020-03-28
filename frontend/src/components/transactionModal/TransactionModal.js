@@ -1,12 +1,12 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import './TransactionModal.css';
-import {close, deleteTransaction, select, submit} from "../../actions/transactionActions"
+import { closeTransaction, deleteTransaction, select, submit } from "../../actions/transactionActions"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-import {format, parse} from "../../service/dateUtil";
+import { format, parse } from "../../service/dateUtil";
 import Modal from "../commons/Modal";
 
 class TransactionModal extends React.Component {
@@ -81,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    close: () => dispatch(close()),
+    close: () => dispatch(closeTransaction()),
     change: transaction => dispatch(select(transaction)),
     submit: (transaction, month) => dispatch(submit(transaction, month)),
     deleteTransaction: (transaction, month) => dispatch(deleteTransaction(transaction, month))
