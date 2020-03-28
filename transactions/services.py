@@ -11,7 +11,8 @@ def find_jars():
         result.append({
             'uuid': jar.uuid,
             'name': jar.name,
-            'order': jar.order
+            'order': jar.order,
+            'type': jar.type
         })
     return result
 
@@ -34,9 +35,13 @@ def find_transactions(from_date, to_date):
     return result
 
 
-def update_jar(name, uuid):
+def update_jar(jar_body):
     count = OrderedJar.objects.count()
-    jar = OrderedJar(name=name, uuid=uuid, order=count)
+    jar = OrderedJar(
+        name=jar_body['name'],
+        uuid=jar_body['uuid'],
+        type=jar_body['type'],
+        order=count)
     jar.save()
     return jar
 

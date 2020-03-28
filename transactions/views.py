@@ -33,7 +33,7 @@ def jars(request):
     if not request.method == 'POST':
         return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: POST')
     request_body = parse_body(request)
-    jar = update_jar(**request_body)
+    jar = update_jar(request_body)
     return JsonResponse({'name': jar.name, 'uuid': jar.uuid, 'order': jar.order})
 
 

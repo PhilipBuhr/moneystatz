@@ -11,12 +11,12 @@ client = Client()
 
 @pytest.fixture
 def setup_db(db):
-    einkommen = OrderedJar(name='Einkommen', uuid='15407508-1d87-46db-adf1-7a32c0999385', order=0)
+    einkommen = OrderedJar(name='Einkommen', uuid='15407508-1d87-46db-adf1-7a32c0999385', order=0, type='income')
     einkommen.save()
-    spass = OrderedJar(name='Spaß', uuid='aa598ef0-6419-4506-b637-9b2c29e97cb6', order=1)
+    spass = OrderedJar(name='Spaß', uuid='aa598ef0-6419-4506-b637-9b2c29e97cb6', order=1, type='expense')
     spass.save()
-    OrderedJar(name='Notwendigkeiten', uuid='daf921e4-cfab-4ee6-a152-062817c3100f', order=2).save()
-    OrderedJar(name='Passives Einkommen', uuid='ae1ea2bc-05e8-4979-9830-597c4f79984c', order=3).save()
+    OrderedJar(name='Notwendigkeiten', uuid='daf921e4-cfab-4ee6-a152-062817c3100f', order=2, type='expense').save()
+    OrderedJar(name='Passives Einkommen', uuid='ae1ea2bc-05e8-4979-9830-597c4f79984c', order=3, type='expense').save()
     Transaction(uuid='374ed882-607e-4203-9c8c-380fe38c1a51', amount=2000, date=datetime.date(2020, 3, 15),
                 orderedJar=einkommen).save()
     Transaction(uuid='e268fdd9-aef4-4af9-9545-93758d486fa1', amount=100, date=datetime.date(2020, 3, 15),
@@ -37,6 +37,7 @@ def test_returns_saved_transactions(db):
     assert jar['name'] == "Notwendigkeiten"
     assert jar['uuid'] == 'daf921e4-cfab-4ee6-a152-062817c3100f'
     assert jar['order'] == 2
+    assert jar['type'] == 'expense'
 
     uuids = [transaction['uuid'] for transaction in response_json['transactions']]
     assert len(response_json['transactions']) == 4
@@ -48,7 +49,8 @@ def test_returns_saved_transactions(db):
 def test_add_new_jar(db):
     body = {
         'name': 'Drogen',
-        'uuid': 'daf921e4-cfab-4ee6-a152-062817c3100f'
+        'uuid': 'daf921e4-cfab-4ee6-a152-062817c3100f',
+        'type': 'expense'
     }
     response = client.post('/api/jars', data=body, content_type='application/json')
     assert response.status_code == 200
@@ -58,6 +60,7 @@ def test_add_new_jar(db):
     jar = find_by_jar_name(response_json['jars'], 'Drogen')
     assert jar['name'] == 'Drogen'
     assert jar['uuid'] == 'daf921e4-cfab-4ee6-a152-062817c3100f'
+    assert jar['type'] == 'expense'
     assert jar['order'] == 4
 
 

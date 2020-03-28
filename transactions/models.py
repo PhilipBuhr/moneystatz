@@ -4,6 +4,7 @@ from django.db import models
 class OrderedJar(models.Model):
     uuid = models.CharField(max_length=36, primary_key=True)
     name = models.CharField(max_length=255)
+    type = models.CharField(max_length=255, choices=[('income', 'income'), ('expense', 'expense')], default='expense')
     order = models.IntegerField()
 
 
