@@ -1,12 +1,19 @@
 import datetime
 
-from transactions.models import Jar, Transaction
+from transactions.models import Transaction, OrderedJar
 
 DATE_FORMAT = '%Y-%m-%d'
 
 
 def find_jars():
-    return [jar.name for jar in Jar.objects.all()]
+    result = []
+    for jar in OrderedJar.objects.all():
+        result.append({
+            'uuid': jar.uuid,
+            'name': jar.name,
+            'order': jar.order
+        })
+    return result
 
 
 def find_transactions(from_date, to_date):
@@ -21,25 +28,26 @@ def find_transactions(from_date, to_date):
             'uuid': transaction.uuid,
             'amount': transaction.amount,
             'date': transaction.date.strftime(DATE_FORMAT),
-            'jar': transaction.jar.name,
+            'jar': transaction.orderedJar.name,
         }
         result.append(json)
     return result
 
 
-def update_jar(name):
-    jar = Jar(name=name)
+def update_jar(name, uuid):
+    count = OrderedJar.objects.count()
+    jar = OrderedJar(name=name, uuid=uuid, order=count)
     jar.save()
     return jar
 
 
 def update_transaction(transaction):
-    jar = Jar.objects.get(name=transaction['jar'])
+    jar = OrderedJar.objects.get(name=transaction['jar'])
     transaction = Transaction(
         uuid=transaction['uuid'],
         date=datetime.datetime.strptime(transaction['date'], DATE_FORMAT),
         amount=transaction['amount'],
-        jar=jar
+        orderedJar=jar
     )
     transaction.save()
     return transaction

@@ -22,7 +22,7 @@ def transactions(request):
                 'uuid': transaction_model.uuid,
                 'amount': transaction_model.amount,
                 'date': transaction_model.date.strftime(DATE_FORMAT),
-                'jar': transaction_model.jar.name
+                'jar': transaction_model.orderedJar.name
             }
         })
     return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: GET, POST')
@@ -33,9 +33,8 @@ def jars(request):
     if not request.method == 'POST':
         return HttpResponse(status=405, content=b'Method not allowed. Allowed Methods: POST')
     request_body = parse_body(request)
-    name = request_body['jar']
-    jar = update_jar(name)
-    return JsonResponse({'jar': jar.name})
+    jar = update_jar(**request_body)
+    return JsonResponse({'name': jar.name, 'uuid': jar.uuid, 'order': jar.order})
 
 
 @csrf_exempt

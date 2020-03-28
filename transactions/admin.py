@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-from .models import Transaction, Jar
+from .models import Transaction, OrderedJar
 
 # Register your models here.
 
 admin.site.register(Transaction)
-admin.site.register(Jar)
+admin.site.register(OrderedJar)
