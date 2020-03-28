@@ -36,14 +36,22 @@ def find_transactions(from_date, to_date):
 
 
 def update_jar(jar_body):
-    count = OrderedJar.objects.count()
-    jar = OrderedJar(
+    all_jars = [jar for jar in OrderedJar.objects.order_by('order') if jar.uuid != jar_body['uuid']]
+    updated_jar = OrderedJar(
         name=jar_body['name'],
         uuid=jar_body['uuid'],
         type=jar_body['type'],
-        order=count)
-    jar.save()
-    return jar
+        order=jar_body['order']
+    )
+    all_jars.insert(jar_body['order'], updated_jar)
+    _save_new_order(all_jars)
+    return updated_jar
+
+
+def _save_new_order(all_jars):
+    for index, new_jar in enumerate(all_jars):
+        new_jar.order = index
+        new_jar.save()
 
 
 def update_transaction(transaction):

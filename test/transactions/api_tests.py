@@ -49,19 +49,67 @@ def test_returns_saved_transactions(db):
 def test_add_new_jar(db):
     body = {
         'name': 'Drogen',
-        'uuid': 'daf921e4-cfab-4ee6-a152-062817c3100f',
-        'type': 'expense'
+        'uuid': '46a9f293-e3e7-4c50-ba5d-4ced0f950fee',
+        'type': 'expense',
+        'order': 4
     }
     response = client.post('/api/jars', data=body, content_type='application/json')
     assert response.status_code == 200
 
     response_json = load_transactions()
 
+    assert len(response_json['jars']) == 5
+    jar = find_by_jar_name(response_json['jars'], 'Drogen')
+    assert jar['name'] == 'Drogen'
+    assert jar['uuid'] == '46a9f293-e3e7-4c50-ba5d-4ced0f950fee'
+    assert jar['type'] == 'expense'
+    assert jar['order'] == 4
+
+
+@pytest.mark.usefixtures('setup_db')
+def test_update_jar(db):
+    body = {
+        'name': 'Drogen',
+        'uuid': 'daf921e4-cfab-4ee6-a152-062817c3100f',  # Notwendigkeiten ID
+        'type': 'expense',
+        'order': 2
+    }
+    response = client.post('/api/jars', data=body, content_type='application/json')
+    assert response.status_code == 200
+
+    response_json = load_transactions()
+
+    assert len(response_json['jars']) == 4
+
     jar = find_by_jar_name(response_json['jars'], 'Drogen')
     assert jar['name'] == 'Drogen'
     assert jar['uuid'] == 'daf921e4-cfab-4ee6-a152-062817c3100f'
-    assert jar['type'] == 'expense'
-    assert jar['order'] == 4
+
+    jar_names = [jar['name'] for jar in response_json['jars']]
+    assert 'Notwendigkeiten' not in jar_names
+
+
+@pytest.mark.usefixtures('setup_db')
+def test_change_order_of_jars(db):
+    body = {
+        'name': 'Passives Einkommen',
+        'uuid': 'ae1ea2bc-05e8-4979-9830-597c4f79984c',
+        'type': 'expense',
+        'order': 1
+    }
+    response = client.post('/api/jars', data=body, content_type='application/json')
+    assert response.status_code == 200
+
+    response_json = load_transactions()
+
+    jars = response_json['jars']
+    assert len(jars) == 4
+    passives_einkommen = find_by_jar_name(jars, 'Passives Einkommen')
+    assert passives_einkommen['order'] == 1
+    spass = find_by_jar_name(jars, 'Spaß')
+    assert spass['order'] == 2
+    notwendigkeiten = find_by_jar_name(jars, 'Notwendigkeiten')
+    assert notwendigkeiten['order'] == 3
 
 
 @pytest.mark.usefixtures('setup_db')
