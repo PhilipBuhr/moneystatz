@@ -15,6 +15,7 @@ class TransactionModal extends React.Component {
         this.inputAmount = null;
     }
 
+    // noinspection JSCheckFunctionSignatures
     componentDidUpdate() {
         if (this.inputAmount) {
             this.inputAmount.focus();
@@ -66,25 +67,24 @@ class TransactionModal extends React.Component {
     };
 
     onSubmit = () => {
-        this.props.submit(this.props.transaction, this.props.month);
+        this.props.submit(this.props.transaction);
     };
 
     onDelete = () => {
-        this.props.deleteTransaction(this.props.transaction, this.props.month);
+        this.props.deleteTransaction(this.props.transaction);
     }
 }
 
 const mapStateToProps = state => ({
     active: !!state.dateState.selectedTransaction,
     transaction: state.dateState.selectedTransaction,
-    month: state.dateState.month
 });
 
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeTransaction()),
     change: transaction => dispatch(select(transaction)),
-    submit: (transaction, month) => dispatch(submit(transaction, month)),
-    deleteTransaction: (transaction, month) => dispatch(deleteTransaction(transaction, month))
+    submit: transaction => dispatch(submit(transaction)),
+    deleteTransaction: transaction => dispatch(deleteTransaction(transaction))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransactionModal);

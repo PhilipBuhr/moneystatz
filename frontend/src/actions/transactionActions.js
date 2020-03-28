@@ -1,7 +1,5 @@
-import { RestService } from "../service/restService";
 import { loadForMonth } from "./dateActions";
 
-const restService = new RestService();
 export const TransactionTypes = {
     CLOSE: "CLOSE",
     SELECT: "SELECT",
@@ -18,22 +16,22 @@ export const select = transaction => ({
     transaction: transaction
 });
 
-export const submit = (transaction, month) => {
-    return dispatch => {
-        restService.post('api/transactions', transaction)
+export const submit = transaction => {
+    return (dispatch, getState, services) => {
+        services.restService.post('api/transactions', transaction)
             .then(() => {
                 dispatch(closeTransaction());
-                dispatch(loadForMonth(month));
+                dispatch(loadForMonth(getState().dateState.month));
             }, error => console.log(error));
     }
 };
 
-export const deleteTransaction = (transaction, month) => {
-    return dispatch => {
-        restService.delete('api/transactions', transaction.uuid)
+export const deleteTransaction = transaction => {
+    return (dispatch, getState, services) => {
+        services.restService.delete('api/transactions', transaction.uuid)
             .then(() => {
                 dispatch(closeTransaction());
-                dispatch(loadForMonth(month));
+                dispatch(loadForMonth(getState().dateState.month));
             }, error => console.error(error));
     }
 };
@@ -50,12 +48,12 @@ export const closeAddJar = () => {
     }
 };
 
-export const submitJar = (jarName, month) => {
-    return dispatch => {
-        restService.post('api/jars', {jar: jarName})
+export const submitJar = jarName => {
+    return (dispatch, getState, services) => {
+        services.restService.post('api/jars', { jar: jarName })
             .then(() => {
                 dispatch(closeAddJar());
-                dispatch(loadForMonth(month))
+                dispatch(loadForMonth(getState().dateState.month))
             })
     }
 };

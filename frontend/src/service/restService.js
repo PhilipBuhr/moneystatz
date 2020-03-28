@@ -33,3 +33,5 @@ export class RestService {
         return url_params ? `?${url_params.join('&')}` : '';
     }
 }
+
+export default RestService;

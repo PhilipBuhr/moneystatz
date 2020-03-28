@@ -28,7 +28,7 @@ export class JarModal extends React.Component {
     };
 
     onSubmit = () => {
-        this.props.submit(this.state.jarName, this.props.month);
+        this.props.submit(this.state.jarName);
         this.resetJarName();
     };
 
@@ -44,12 +44,11 @@ export class JarModal extends React.Component {
 
 const mapStateToProps = state => ({
     active: state.dateState.jar_modal,
-    month: state.dateState.month
 });
 
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeAddJar()),
-    submit: (jarName, month) => dispatch(submitJar(jarName, month))
+    submit: jarName => dispatch(submitJar(jarName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JarModal);
