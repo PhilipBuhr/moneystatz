@@ -21,11 +21,17 @@ class TransactionModal extends React.Component {
     }
 
     // noinspection JSCheckFunctionSignatures
-    componentDidUpdate() {
-        if (this.inputAmount) {
+    componentDidUpdate(prevState, prevProps) {
+        if (!(prevState && prevState.active) && this.inputAmount) {
             this.inputAmount.focus();
         }
     }
+
+    renderJarOptions = () => {
+        return this.props.jars.map(jar => (
+            <option value={jar.name} key={jar.uuid}>{jar.name}</option>
+        ));
+    };
 
     render() {
         if (this.props.active) {
@@ -40,7 +46,9 @@ class TransactionModal extends React.Component {
                                ref={input => this.inputAmount = input}
                         />
                         <div className="TransactionModal-label">Jar</div>
-                        <input value={jar} onChange={event => this.onChange(event, 'jar')} onKeyPress={this.submitOnEnter}/>
+                        <select value={jar} onChange={event => this.onChange(event, 'jar')} onKeyPress={this.submitOnEnter}>
+                            {this.renderJarOptions()}
+                        </select>
                         <div className="TransactionModal-label">Date</div>
                         <DatePicker selected={parse(date)} onChange={this.onChangeDate} dateFormat="dd.MM.yyyy"/>
                     </div>
@@ -83,6 +91,7 @@ class TransactionModal extends React.Component {
 const mapStateToProps = state => ({
     active: !!state.dateState.selectedTransaction,
     transaction: state.dateState.selectedTransaction,
+    jars: state.dateState.transactions.jars
 });
 
 const mapDispatchToProps = dispatch => ({
