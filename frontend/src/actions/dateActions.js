@@ -38,6 +38,7 @@ const setMonthAction = (month) => ({
 function fetchTransactionsForMonth(month, dispatch) {
     dispatch(setMonthAction(month));
     dispatch(requestTransactions());
+    dispatch(selectStatisticRange(month.getFirstAsString(), month.getLastAsString()));
 
     return loadTransactions(month, dispatch)
 }
