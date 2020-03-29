@@ -59,3 +59,13 @@ export const submitJar = jar => {
             })
     }
 };
+
+export const deleteJar = jar => {
+    return (dispatch, getState, services) => {
+        services.restService.delete(`api/jar`, jar.uuid)
+            .then(() => {
+                dispatch(closeAddJar());
+                dispatch(loadForMonth(getState().dateState.month));
+            })
+    }
+};

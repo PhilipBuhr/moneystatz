@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import './JarModal.css';
 import Modal from "../commons/Modal";
-import { closeAddJar, selectJar, submitJar } from "../../actions/transactionActions";
+import { closeAddJar, deleteJar, selectJar, submitJar } from "../../actions/transactionActions";
 
 export class JarModal extends React.Component {
 
@@ -11,7 +11,7 @@ export class JarModal extends React.Component {
             return null;
         }
         return (
-            <Modal onClose={this.onClose} onSubmit={this.onSubmit}>
+            <Modal onClose={this.onClose} onSubmit={this.onSubmit} onDelete={this.onDelete}>
                 <div className="AddJarModal-body">
                     <div>Jar</div><input value={this.props.jar.name} onChange={event => this.onChange(event, 'name')}/>
                     <div>Type</div>
@@ -35,6 +35,9 @@ export class JarModal extends React.Component {
         this.props.submit(this.props.jar);
     };
 
+    onDelete = () => {
+        this.props.delete(this.props.jar)
+    };
 
     onClose = () => {
         this.props.close();
@@ -49,7 +52,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeAddJar()),
     change: jar => dispatch(selectJar(jar)),
-    submit: jar => dispatch(submitJar(jar))
+    submit: jar => dispatch(submitJar(jar)),
+    delete: jar => dispatch(deleteJar(jar))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JarModal);
