@@ -23,12 +23,16 @@ class Column extends React.Component {
     render() {
         return (
             <div className="Column-container">
-                <div className="Column-cell">{this.props.jar.name}</div>
+                <div className="Column-cell" onClick={this.editJar}>{this.props.jar.name}</div>
                 <div className="Column-cell Column-total">{this.props.total.toFixed(2)}</div>
                 {this.renderCells()}
                 {this.renderExtraCells()}
             </div>
         )
+    }
+
+    editJar = () => {
+        this.props.onSelectJar(this.props.jar)
     }
 }
 

@@ -3,9 +3,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect'
 import { JarModal } from "./JarModal";
 import { Month } from '../../service/month';
-import * as uuid from 'uuid'
 
-jest.mock('uuid');
 
 describe('JarModal', () => {
     let onClose;
@@ -86,7 +84,6 @@ describe('JarModal', () => {
     });
 
     it('should submit new Jar', () => {
-        uuid.v4.mockImplementation(() => 'uuid');
         render(
             <JarModal
                 active={true}
