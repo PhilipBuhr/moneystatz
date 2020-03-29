@@ -9,6 +9,9 @@ const defaultState = {
     transactions: new Transactions([]),
     selectedTransaction: null,
     selectedJar: null,
+    statisticFrom: Month.from(new Date()).getFirstAsString(),
+    statisticTo: Month.from(new Date()).getLastAsString(),
+    statisticsTransactions: new Transactions([])
 };
 
 export default (state = defaultState, action) => {
@@ -19,6 +22,10 @@ export default (state = defaultState, action) => {
             return {...state, loading: true};
         case DateTypes.RECEIVE_TRANSACTIONS:
             return {...state, loading: false, transactions: action.payload};
+        case DateTypes.SELECT_STATISTIC_RANGE:
+            return { ...state, statisticFrom: action.from, statisticTo: action.to };
+        case DateTypes.RECEIVE_STATISTICS_TRANSACTIONS:
+            return { ...state, statisticsTransactions: action.transactions };
         case TransactionTypes.CLOSE:
             return {...state, selectedTransaction: null};
         case TransactionTypes.SELECT:

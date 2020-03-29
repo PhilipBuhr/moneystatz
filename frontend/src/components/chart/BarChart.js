@@ -86,7 +86,7 @@ class BarChart extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    transactions: state.dateState.transactions
+    transactions: state.dateState.statisticsTransactions
 });
 
 export default connect(mapStateToProps, null)(BarChart);

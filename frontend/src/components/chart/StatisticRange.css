@@ -1,0 +1,21 @@
+.StatisticRange-container {
+    width: 100%;
+    min-height: 150px;
+    padding-left: 50px;
+    display: grid;
+    grid-template-columns: 100px 200px;
+    grid-template-rows: repeat(auto-fill, 40px);
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.StatisticRange-label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 22px;
+}
+
+.hidden {
+    display: none;
+}
