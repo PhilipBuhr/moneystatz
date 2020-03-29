@@ -73,7 +73,14 @@ class BarChart extends React.Component {
             .attr('class', 'percentage')
             .attr('x', (d, i) => xScale(i))
             .attr('y', d => yScale(d.total))
-            .text(d => `${d.percentage.toFixed(0)}%`)
+            .text(d => `${d.percentage.toFixed(0)}%`);
+
+        const balance = this.props.transactions.calculateBalance();
+        svg.append('text')
+            .attr('x', canvasWidth)
+            .attr('y', margin/2)
+            .attr('text-anchor', 'end')
+            .text(`Balance: ${balance.toFixed(2)}`)
     };
 
     render() {
