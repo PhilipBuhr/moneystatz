@@ -48,6 +48,11 @@ def update_jar(jar_body):
     return updated_jar
 
 
+def delete_jar(uuid):
+    jar = OrderedJar.objects.get(uuid=uuid)
+    jar.delete()
+
+
 def _save_new_order(all_jars):
     for index, new_jar in enumerate(all_jars):
         new_jar.order = index

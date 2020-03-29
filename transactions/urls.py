@@ -6,4 +6,5 @@ urlpatterns = [
     path('transactions', views.transactions, name='transactions'),
     path('transactions/<str:uuid>', views.transaction, name='delete_transaction'),
     path('jars', views.jars, name='jars'),
+    path('jar/<str:uuid>', views.jar, name='jar'),
 ]

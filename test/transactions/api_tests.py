@@ -113,6 +113,18 @@ def test_change_order_of_jars(db):
 
 
 @pytest.mark.usefixtures('setup_db')
+def test_delete_jar(db):
+    response = client.delete('/api/jar/daf921e4-cfab-4ee6-a152-062817c3100f')
+    assert response.status_code == 200
+
+    response_json = load_transactions()
+    jars = response_json['jars']
+    assert len(jars) == 3
+    jar_names = [jar['name'] for jar in jars]
+    assert 'Notwendigkeiten' not in jar_names
+
+
+@pytest.mark.usefixtures('setup_db')
 def test_add_new_transaction(db):
     body = {
         'uuid': '73a77c33-9947-4a7f-b933-205748bdeba3',
