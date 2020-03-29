@@ -20,6 +20,27 @@ exports[`JarModal should render: JarModalSnapshot 1`] = `
           <input
             value=""
           />
+          <div>
+            Type
+          </div>
+          <select>
+            <option
+              value="income"
+            >
+              Income
+            </option>
+            <option
+              value="expense"
+            >
+              Expense
+            </option>
+          </select>
+          <div>
+            Order
+          </div>
+          <input
+            value="3"
+          />
         </div>
       </div>
       <div

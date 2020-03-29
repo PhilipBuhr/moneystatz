@@ -41,9 +41,9 @@ def update_jar(jar_body):
         name=jar_body['name'],
         uuid=jar_body['uuid'],
         type=jar_body['type'],
-        order=jar_body['order']
+        order=int(jar_body['order'])
     )
-    all_jars.insert(jar_body['order'], updated_jar)
+    all_jars.insert(int(jar_body['order']), updated_jar)
     _save_new_order(all_jars)
     return updated_jar
 

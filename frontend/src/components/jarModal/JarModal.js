@@ -2,14 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import './JarModal.css';
 import Modal from "../commons/Modal";
-import { closeAddJar, submitJar } from "../../actions/transactionActions";
+import { closeAddJar, selectJar, submitJar } from "../../actions/transactionActions";
 
 export class JarModal extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {jarName: ''}
-    }
     render() {
         if (!this.props.active) {
             return null;
@@ -17,38 +13,43 @@ export class JarModal extends React.Component {
         return (
             <Modal onClose={this.onClose} onSubmit={this.onSubmit}>
                 <div className="AddJarModal-body">
-                    <div>Jar</div><input value={this.state.jarName} onChange={this.onChange}/>
+                    <div>Jar</div><input value={this.props.jar.name} onChange={event => this.onChange(event, 'name')}/>
+                    <div>Type</div>
+                    <select value={this.props.jar.type} onChange={event => this.onChange(event, 'type')}>
+                        <option value="income">Income</option>
+                        <option value="expense">Expense</option>
+                    </select>
+                    <div>Order</div><input value={this.props.jar.order} onChange={event => this.onChange(event, 'order')}/>
                 </div>
             </Modal>
         );
     }
 
-    onChange = event => {
-        this.setState({...this.state, jarName: event.target.value})
+    onChange = (event, property) => {
+        const newJar = { ...this.props.jar };
+        newJar[property] = event.target.value;
+        this.props.change(newJar);
     };
 
     onSubmit = () => {
-        this.props.submit(this.state.jarName);
-        this.resetJarName();
+        this.props.submit(this.props.jar);
     };
 
-    resetJarName() {
-        this.setState({...this.state, jarName: ''})
-    }
 
     onClose = () => {
-        this.resetJarName();
         this.props.close();
     };
 }
 
 const mapStateToProps = state => ({
-    active: state.dateState.jar_modal,
+    active: !!state.dateState.selectedJar,
+    jar: state.dateState.selectedJar
 });
 
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeAddJar()),
-    submit: jarName => dispatch(submitJar(jarName))
+    change: jar => dispatch(selectJar(jar)),
+    submit: jar => dispatch(submitJar(jar))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(JarModal);

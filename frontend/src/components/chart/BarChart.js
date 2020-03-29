@@ -1,5 +1,5 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import './BarChart.css';
 import * as d3 from 'd3';
 
@@ -61,7 +61,7 @@ class BarChart extends React.Component {
         g.selectAll('.bar')
             .data(data).enter()
             .append('rect')
-            .attr('class', 'bar')
+            .attr('class', d => d.type)
             .attr('x', (d, i) => xScale(i))
             .attr('y', d => yScale(d.total))
             .attr('width', xScale.bandwidth)

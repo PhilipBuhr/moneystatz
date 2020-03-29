@@ -1,9 +1,10 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import './Table.css'
 import addIcon from './plus.svg'
 import Column from "./Column";
-import {openAddJar} from "../../actions/transactionActions";
+import { selectJar } from "../../actions/transactionActions";
+import { v4 as uuid } from 'uuid';
 
 class Table extends React.Component {
 
@@ -11,10 +12,10 @@ class Table extends React.Component {
         return this.props.transactions.jars.map(jar => (
             <Column
                 jar={jar}
-                key={jar}
+                key={jar.uuid}
                 month={this.props.month}
-                transactions={this.props.transactions.get(jar)}
-                total={this.props.transactions.getTotal(jar)}
+                transactions={this.props.transactions.get(jar.name)}
+                total={this.props.transactions.getTotal(jar.name)}
                 minCells={this.props.transactions.maxJarSize()}/>
         ))
     };
@@ -23,11 +24,21 @@ class Table extends React.Component {
         return (
             <div className="Table-container">
                 {this.renderColumns()}
-                <div className="Table-add-jar-button" onClick={this.props.openAddJar}>
+                <div className="Table-add-jar-button" onClick={this.addJar}>
                     <img className="Table-add-jar-button-icon" src={addIcon} alt="Add Jar"/>
                 </div>
             </div>
         )
+    }
+
+    addJar = () => {
+        const jar = {
+            name: '',
+            uuid: uuid(),
+            order: this.props.transactions.jars.length,
+            type: 'expense'
+        };
+        this.props.selectJar(jar);
     }
 }
 
@@ -36,7 +47,7 @@ const mapStateToProps = state => ({
     month: state.dateState.month
 });
 const mapDispatchToProps = dispatch => ({
-    openAddJar: () => dispatch(openAddJar())
+    selectJar: jar => dispatch(selectJar(jar))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

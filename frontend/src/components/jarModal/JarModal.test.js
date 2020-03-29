@@ -3,23 +3,31 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect'
 import { JarModal } from "./JarModal";
 import { Month } from '../../service/month';
+import * as uuid from 'uuid'
 
+jest.mock('uuid');
 
 describe('JarModal', () => {
     let onClose;
     let onSubmit;
+    let onChange;
+    let jar;
 
     beforeEach(() => {
         onClose = jest.fn();
+        onChange = jest.fn();
         onSubmit = jest.fn();
+        jar = { name: '', uuid: 'uuid', order: 3, type: 'expense' }
     });
 
     it('should render', () => {
         const { container } = render(
             <JarModal
                 active={true}
+                jar={jar}
                 month={new Month(3, 2020)}
                 close={onClose}
+                change={onChange}
                 submit={onSubmit}
             />);
         expect(container).toMatchSnapshot('JarModalSnapshot');
@@ -29,8 +37,10 @@ describe('JarModal', () => {
         const { container } = render(
             <JarModal
                 active={true}
+                jar={jar}
                 month={new Month(3, 2020)}
                 close={onClose}
+                change={onChange}
                 submit={onSubmit}
             />);
 
@@ -47,8 +57,10 @@ describe('JarModal', () => {
         render(
             <JarModal
                 active={true}
+                jar={jar}
                 month={new Month(3, 2020)}
                 close={onClose}
+                change={onChange}
                 submit={onSubmit}
             />);
 
@@ -57,18 +69,36 @@ describe('JarModal', () => {
         expect(onClose).toHaveBeenCalled();
     });
 
-    it('should submit new Jar', () => {
+    it('should change selected jar', () => {
         const { container } = render(
             <JarModal
                 active={true}
+                jar={jar}
                 month={new Month(3, 2020)}
                 close={onClose}
+                change={onChange}
                 submit={onSubmit}
             />);
 
         fireEvent.change(container.querySelector('input'), { target: { value: 'jarName' } });
+
+        expect(onChange).toHaveBeenCalledWith({name: 'jarName', uuid: 'uuid', order: 3, type: 'expense'})
+    });
+
+    it('should submit new Jar', () => {
+        uuid.v4.mockImplementation(() => 'uuid');
+        render(
+            <JarModal
+                active={true}
+                jar={{...jar, name: 'jarName'}}
+                month={new Month(3, 2020)}
+                close={onClose}
+                change={onChange}
+                submit={onSubmit}
+            />);
+
         fireEvent.click(screen.getByAltText('Submit'));
 
-        expect(onSubmit).toHaveBeenCalledWith('jarName', {month: 3, year: 2020});
+        expect(onSubmit).toHaveBeenCalledWith({ name: 'jarName', uuid: 'uuid', type: 'expense', order: 3 });
     });
 });

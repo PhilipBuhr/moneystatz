@@ -8,6 +8,10 @@
     color: #121212;
 }
 
-.bar {
+.expense {
+    fill: #BA1818;
+}
+
+.income {
     fill: steelblue;
 }

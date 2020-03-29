@@ -1,7 +1,7 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import './Cell.css';
-import {select} from "../../actions/transactionActions";
+import { selectTransaction } from "../../actions/transactionActions";
 
 class Cell extends React.Component {
     render() {
@@ -17,7 +17,7 @@ class Cell extends React.Component {
     }
 }
 const mapDispatchToProps = dispatch => ({
-    select: transaction => dispatch(select(transaction))
+    select: transaction => dispatch(selectTransaction(transaction))
 });
 
 export default connect(null, mapDispatchToProps)(Cell);

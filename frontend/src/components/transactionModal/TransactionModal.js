@@ -1,7 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
 import './TransactionModal.css';
-import { closeTransaction, deleteTransaction, select, submit } from "../../actions/transactionActions"
+import {
+    closeTransaction,
+    deleteTransaction,
+    selectTransaction,
+    submitTransaction
+} from "../../actions/transactionActions"
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -82,8 +87,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     close: () => dispatch(closeTransaction()),
-    change: transaction => dispatch(select(transaction)),
-    submit: transaction => dispatch(submit(transaction)),
+    change: transaction => dispatch(selectTransaction(transaction)),
+    submit: transaction => dispatch(submitTransaction(transaction)),
     deleteTransaction: transaction => dispatch(deleteTransaction(transaction))
 });
 

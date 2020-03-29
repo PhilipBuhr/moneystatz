@@ -24,9 +24,10 @@ describe('transactionActions', () => {
 
         it('should close modal on success', () => {
             expect.assertions(1);
-            const dispatchCallback = submitJar('someJar');
+            let jar = {name: 'someJar', uuid: 'uuid', type: 'expense'};
+            const dispatchCallback = submitJar(jar);
             dispatchCallback(dispatchMock, () => state, {restService});
-            expect(mockPost).toHaveBeenCalledWith('api/jars', {jar: 'someJar'});
+            expect(mockPost).toHaveBeenCalledWith('api/jars', jar);
         });
     });
 });
