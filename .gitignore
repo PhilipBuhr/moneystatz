@@ -338,3 +338,4 @@ pip-selfcheck.json
 # End of https://www.gitignore.io/api/node,venv,react,django,pycharm
 
 nohup.out
+moneystatz.db
