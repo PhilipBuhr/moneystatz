@@ -24,5 +24,6 @@ After installation, change into the root directory and run:
 ```shell script
 ./startDev.sh
 ```
+If the browser doesn't open automatically, got to `http://localhost:3000`.
 
 Use the + icon to add Jars. Click cells to add/edit/delete transactions. The Bar chart updates automatically. 
